@@ -1,0 +1,32 @@
+{
+  "name": "@nagriksetu/harvester",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NagrikSetu harvester: official-source PMC scheme profiler (Cline SDK).",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "harvest": "node --env-file=.env dist/cli.js harvest"
+  },
+  "dependencies": {
+    "@cline/sdk": "^0.0.90",
+    "@nagriksetu/agents": "*",
+    "@nagriksetu/documents": "*",
+    "@napi-rs/canvas": "^1.0.10",
+    "@supabase/supabase-js": "^2.117.2",
+    "unpdf": "^1.8.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.3"
+  },
+  "bin": {
+    "nagriksetu-harvest": "dist/cli.js"
+  }
+}

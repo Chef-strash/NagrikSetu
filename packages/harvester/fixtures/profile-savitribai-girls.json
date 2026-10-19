@@ -1,0 +1,25 @@
+{
+  "profile": {
+    "name": "Savitribai Phule Girls Scholarship",
+    "vernacular_name": "सावित्रीबाई फुले मुलींची शिष्यवृत्ती",
+    "department": "शिक्षण विभाग",
+    "category": "education",
+    "description": "Scholarship for girl students per GR dated 5 Jan 2026.",
+    "eligibility_text": "Must be a girl student\nMust be a PMC resident",
+    "benefit_amount": 10000,
+    "source_url": "https://webadmin.pmc.gov.in/node/101",
+    "documents": [
+      {
+        "doc_key": "aadhaar",
+        "label_en": "Aadhaar card",
+        "is_required": true
+      },
+      {
+        "doc_key": "bonafide",
+        "label_en": "Bonafide certificate",
+        "is_required": true
+      }
+    ]
+  },
+  "sourceText": "GR dated 5 Jan 2026 grants Rs. 10,000 scholarship."
+}

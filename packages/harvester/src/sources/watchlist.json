@@ -1,0 +1,120 @@
+[
+  {
+    "slug": "pmc-azad-class10",
+    "note": "Official PMC CMS page for the Educational Financial Assistance Schemes 2026 (covers the Bharat Ratna Maulana Abul Kalam Azad Class-10 SSC assistance). Server-rendered Drupal page on webadmin.pmc.gov.in — verified HTTP 200, 601 words (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/efa-scheme-26"]
+  },
+  {
+    "slug": "pmc-sathe-class12",
+    "note": "Same official PMC Educational Financial Assistance Schemes 2026 page; covers the Lokshahir Annabhau Sathe Class-12 HSC assistance. webadmin.pmc.gov.in — verified HTTP 200 (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/efa-scheme-26"]
+  },
+  {
+    "slug": "pmc-sgay-health",
+    "note": "Official PMC Shahari Garib Arogya Yojana (urban poor health) scheme page on the PMC CMS. webadmin.pmc.gov.in — verified HTTP 200, 717 words (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/urban-poor-health-scheme"]
+  },
+  {
+    "slug": "pmc-svanidhi-hawker",
+    "note": "MoHUA PM SVANidhi scheme guideline PDF (central ministry host). Verified HTTP 200 application/pdf; states the first loan tranche is up to Rs 15,000 (seed has Rs 10,000). Review 2026-10-04 Required fix 6.",
+    "urls": [
+      "https://www.mohua.gov.in/static/uploads/2026/01/bde957bc3a87fb001c05ddd09484edda.pdf"
+    ]
+  },
+  {
+    "slug": "pmc-savitribai-girls",
+    "note": "Official PMC Educational Financial Assistance Schemes 2026 page (covers the Krantijyoti Savitribai Phule girls' assistance). webadmin.pmc.gov.in — verified HTTP 200 (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/efa-scheme-26"]
+  },
+  {
+    "slug": "pmc-divyang-welfare",
+    "note": "Official PMC Social Development Department scheme page (publisher of PMC disability/divyang welfare programmes). webadmin.pmc.gov.in — verified HTTP 200, 327 words (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/dr-babasaheb-ambedkar-social-development-scheme"]
+  },
+  {
+    "slug": "pmc-shram-safalya-awas",
+    "note": "Official PMC Dr. Babasaheb Ambedkar Shram Safalya Awas Yojana page — the single row returned by the CMS `schemes` listing feed. webadmin.pmc.gov.in — verified HTTP 200, 281 words (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/dr-babasaheb-ambedkar-shram-safalya-awas-yojana"]
+  },
+  {
+    "slug": "pmc-labour-welfare-fund",
+    "note": "Official PMC Labour Welfare Fund page (PMC initiatives). webadmin.pmc.gov.in — verified HTTP 200, 849 words (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/labour-welfare-fund-0"]
+  },
+  {
+    "slug": "pmc-national-health-program",
+    "note": "Official PMC National Health Program page — national health programmes delivered through PMC. webadmin.pmc.gov.in — verified HTTP 200, 1648 words (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/national-health-program"]
+  },
+  {
+    "slug": "pmc-sports-academy",
+    "note": "Official PMC Non-resident Sports Academy page — residential sports training for PMC students. webadmin.pmc.gov.in — verified HTTP 200, 828 words (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/non-resident-sports-academy"]
+  },
+  {
+    "slug": "pmc-women-empowerment-centres",
+    "note": "Official PMC Social Development Department — Women Empowerment Centres page. webadmin.pmc.gov.in — verified HTTP 200, 528 words (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/women-empowerment-centres"]
+  },
+  {
+    "slug": "pmc-model-schools",
+    "note": "Official PMC Model Schools page (Bhavan Rachna / Education). webadmin.pmc.gov.in — verified HTTP 200, 484 words (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/model-schools"]
+  },
+  {
+    "slug": "pmc-ambedkar-student-hostel",
+    "note": "Official PMC Bharat Ratna Dr. Babasaheb Ambedkar Student Hostel page — hostel facilities for students. webadmin.pmc.gov.in — verified HTTP 200, 479 words (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/bharat-ratna-dr-babasaheb-ambedkar-student-hostel"]
+  },
+  {
+    "slug": "pmc-secondary-school-initiatives",
+    "note": "Official PMC Special Initiatives for Students of PMC-run Secondary Schools page. webadmin.pmc.gov.in — verified HTTP 200, 364 words (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/special-initiatives-students-pune-municipal-corporation-run-secondary-schools"]
+  },
+  {
+    "slug": "pmc-vocational-training",
+    "note": "Official PMC Vocational Training Centres page. webadmin.pmc.gov.in — verified HTTP 200, 343 words (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/vocational-training-centres"]
+  },
+  {
+    "slug": "pmc-financial-initiatives",
+    "note": "Official PMC Financial Initiatives page (PMC initiatives — financial assistance programmes). webadmin.pmc.gov.in — verified HTTP 200, 286 words (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/financial-initiatives-0"]
+  },
+  {
+    "slug": "pmc-sports-material-grant",
+    "note": "Official PMC Grant for Purchase of Sports Material page (PMC initiatives). webadmin.pmc.gov.in — verified HTTP 200, 224 words (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/grant-purchase-sports-material"]
+  },
+  {
+    "slug": "pmc-rani-lakshmibai-women",
+    "note": "Official PMC circular PDF for the Rani Lakshmibai Women Empowerment Yojana (various programmes under it). Marathi scanned circular, webadmin.pmc.gov.in — verified HTTP 200 application/pdf, 5.07 MB (2026-10-04). Exercises the vision path.",
+    "urls": ["https://webadmin.pmc.gov.in/sites/default/files/circular/Rani.pdf"]
+  },
+  {
+    "slug": "pmc-shetkari-karjamukti",
+    "note": "Official PMC circular PDF for the Punyashlok Ahilya Devi Holkar Shetkari Karjamukti Yojana 2026 (farm loan relief). webadmin.pmc.gov.in — verified HTTP 200 application/pdf, 528 KB (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/sites/default/files/circular/Ahilyabai%20holkar%20yojana.pdf"]
+  },
+  {
+    "slug": "pmc-cm-youth-training",
+    "note": "Official PMC circular PDF for the Mukhyamantri Yuva Karya Prashikshan Yojana (Chief Minister Youth Work Training Scheme), Skill/Employment/Entrepreneurship Dept. Marathi PDF, webadmin.pmc.gov.in — verified HTTP 200 application/pdf, 1.05 MB (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/sites/default/files/circular/%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%B0%E0%A4%95%20%E0%A4%AE%E0%A5%81%E0%A4%96%E0%A5%8D%E0%A4%AF%E0%A4%AE%E0%A4%82%E0%A4%A4%E0%A5%8D%E0%A4%B0%E0%A5%80%20%E0%A4%AF%E0%A5%81%E0%A4%B5%E0%A4%BE%20%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%AF%20%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B6%E0%A4%BF%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%A3%20%E0%A4%AF%E0%A5%8B%E0%A4%9C%E0%A4%A8%E0%A4%BE.pdf"]
+  },
+  {
+    "slug": "pmc-ayushman-pmjay",
+    "note": "Official PMC circular PDF on the co-branded Ayushman Card campaign under the combined Ayushman Bharat PM-JAY. webadmin.pmc.gov.in — verified HTTP 200 application/pdf, 3.66 MB (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/sites/default/files/circular/PMJAY%20CO%20BRANDING%20CARDS.pdf"]
+  },
+  {
+    "slug": "pmc-contributory-medical-aid",
+    "note": "Official PMC circular PDF for the अंशदायी वैद्यकीय सहाय्य योजना (Contributory Medical Assistance Scheme). Scanned Marathi circular, webadmin.pmc.gov.in — verified HTTP 200 application/pdf, 487 KB (2026-10-04). Exercises the vision path.",
+    "urls": ["https://webadmin.pmc.gov.in/sites/default/files/circular/DocScanner%2025-Oct-2023%205-37%20pm.pdf"]
+  },
+  {
+    "slug": "pmc-chs-health-service",
+    "note": "Official PMC circular PDF for the Contributory Health Service (CHS) of Pune Municipal Corporation. webadmin.pmc.gov.in — verified HTTP 200 application/pdf, 829 KB (2026-10-04).",
+    "urls": ["https://webadmin.pmc.gov.in/sites/default/files/circular/Contributory%20Health%20Service%20-%20CHS%20of%20Pune%20Municipal%20Corporation%20_1.pdf"]
+  }
+]
+
