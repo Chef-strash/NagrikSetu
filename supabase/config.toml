@@ -1,0 +1,32 @@
+# Local Supabase stack for NagrikSetu (Supabase CLI: `supabase start`).
+# Schema and data are NOT managed through supabase/migrations; scripts/local-db.sh
+# applies docs/SUPABASE_SETUP.sql, docs/migrations/*.sql, docs/demo-setup.sql and
+# docs/seed.sql so local and hosted projects use identical SQL.
+project_id = "nagriksetu"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+
+[db]
+port = 54322
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["http://localhost:3000"]
+
+[auth.email]
+enable_signup = true
+enable_confirmations = false
+
+[inbucket]
+# Catches auth emails (OTP codes) at http://localhost:54324 - no real email needed.
+enabled = true
+port = 54324
