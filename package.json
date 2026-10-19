@@ -1,0 +1,34 @@
+{
+  "name": "nagriksetu",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NagrikSetu monorepo - citizen welfare platform (web + backend) and the Cline-SDK ingestion and document-audit packages.",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "workspaces": [
+    "packages/*",
+    "backend"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev --workspace nagriksetu-backend",
+    "dev:web": "npm run dev --workspace web",
+    "start:backend": "npm run start --workspace nagriksetu-backend",
+    "build:libs": "npm run build --workspace @nagriksetu/agents && npm run build --workspace @nagriksetu/documents",
+    "build:audit": "npm run build:libs && npm run build --workspace @nagriksetu/audit",
+    "build:web": "npm run build --workspace web",
+    "pretypecheck": "npm run build:libs",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "pretest": "npm run build:libs",
+    "test": "npm run test --workspaces --if-present",
+    "demo:setup": "node scripts/demo-setup.mjs",
+    "demo:start": "bash scripts/demo-start.sh",
+    "demo:otp": "node scripts/demo-otp.mjs",
+    "db:setup": "node scripts/db-setup.mjs",
+    "db:verify": "node scripts/db-verify.mjs",
+    "test:scripts": "node --test scripts/demo-otp.test.mjs"
+  },
+  "devDependencies": {
+    "pg": "^8.23.1"
+  }
+}
