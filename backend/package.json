@@ -1,0 +1,28 @@
+{
+  "name": "nagriksetu-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "NagrikSetu backend (Layer 2) - read-only citizen feedback API (FAQs + reviews).",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "dev": "node --watch src/index.ts",
+    "start": "node src/index.ts",
+    "test": "node --test",
+    "typecheck": "tsc --noEmit",
+    "decompose:report": "node scripts/decompose-report.mjs",
+    "db:report": "node scripts/db-status-report.mjs"
+  },
+  "dependencies": {
+    "@cline/sdk": "^0.0.90",
+    "@supabase/supabase-js": "^2.117.2",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.7.4",
+    "typescript": "^5.6.2"
+  }
+}
