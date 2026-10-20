@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
+body {
+  color: var(--foreground);
+  background-color: var(--background);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tabular numerals for monetary figures, dates, and account numbers */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Impeccable browser surface polish: selection */
+::selection {
+  background-color: #10B981; /* Green selection */
+  color: #000000;
+}
+
+/* Custom quiet scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+
+/* Accessible focus ring */
+*:focus-visible {
+  outline: 2px solid #10B981;
+  outline-offset: 2px;
+}
+
+/* ---------- homepage backdrop drift ----------
+   Very slow, low-amplitude movement on the aurora glows. Transform-only, so it
+   stays on the compositor. Fully disabled when the user asks for less motion. */
+@keyframes wwDriftA {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, 3%, 0) scale(1.08);
+  }
+}
+
+@keyframes wwDriftB {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-4%, -3%, 0) scale(1.06);
+  }
+}
+
+.ww-drift-a {
+  animation: wwDriftA 26s ease-in-out infinite;
+}
+
+.ww-drift-b {
+  animation: wwDriftB 32s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ww-drift-a,
+  .ww-drift-b {
+    animation: none;
+  }
+}
+
+/* ---------- auth surface entrance ----------
+   Applied to the card and to each wizard step (keyed by step name, so the
+   animation replays on advance). Transform + opacity only, so it stays on the
+   compositor. With the animation removed the element keeps its natural
+   opacity, so reduced-motion users still see fully visible content. */
+@keyframes wwRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.ww-rise {
+  animation: wwRise 380ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ww-rise {
+    animation: none;
+  }
+}
