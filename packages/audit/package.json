@@ -1,0 +1,39 @@
+{
+  "name": "@nagriksetu/audit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NagrikSetu citizen document audit: page preparation, OCR corroboration, Cline-SDK extraction, code-side verification, PII masking, HTTP service.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "extract": "node dist/cli.js extract",
+    "serve": "node dist/cli.js serve",
+    "eval": "node dist/cli.js eval"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
+    "@nagriksetu/agents": "*",
+    "@nagriksetu/documents": "*",
+    "tesseract.js": "^7.0.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.3"
+  },
+  "bin": {
+    "nagriksetu-audit": "dist/cli.js"
+  }
+}
