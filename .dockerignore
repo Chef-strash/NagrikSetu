@@ -13,5 +13,5 @@ memory-bank
 *.md
 !backend/README.md
 !packages/*/README.md
-NagrikSetu_BlackBox.pdf
+NagrikSetu_WhiteBox.pdf
 .DS_Store

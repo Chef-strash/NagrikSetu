@@ -3,7 +3,7 @@
 # NagrikSetu: The 3-Pillar Welfare Architecture
 ## Empirical Ground-Truth Research across Healthcare, Education, and Agriculture & Peri-Urban Livelihoods
 
-**Author**: Team Blackbox Architecture Group  
+**Author**: Team Whitebox Architecture Group  
 **Target Geography**: Pune Municipal Corporation (PMC), Maharashtra ULBs, and Peri-Urban Fringe Expansion Zones  
 **Scope**: Statutory criteria, financial allocations, ground-level delivery fractures, and deterministic verification rules across the 3 core pillars.
 

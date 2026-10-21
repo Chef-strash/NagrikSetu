@@ -1,0 +1,170 @@
+# NagrikSetu - single-command local stack.
+#
+#   docker compose up --build
+#
+# Then open http://localhost:3000
+#
+# With no .env file this runs fully offline: the web app serves bundled fixtures
+# and the backend answers from fixtures with deterministic (non-LLM) logic. No
+# account, key or database is required.
+#
+# Services: web :3000, backend :8000, audit :8787 (document audit; bound to localhost).
+# Sign-in in offline mode uses the demo login (NEXT_PUBLIC_DEMO_AUTH defaults to true
+# and only takes effect while NEXT_PUBLIC_SUPABASE_URL is empty).
+#
+# Copy .env.example to .env to point at a real Supabase project and/or enable an
+# LLM. See README.md for what each option buys you.
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      PORT: "8000"
+      # 1 = use bundled fixtures instead of reading the database.
+      NAGRIKSETU_DISABLE_DB: "${NAGRIKSETU_DISABLE_DB:-1}"
+      # 1 = deterministic decomposition/answers instead of calling a model.
+      NAGRIKSETU_DISABLE_LLM: "${NAGRIKSETU_DISABLE_LLM:-1}"
+      NEXT_PUBLIC_SUPABASE_URL: "${NEXT_PUBLIC_SUPABASE_URL:-}"
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: "${NEXT_PUBLIC_SUPABASE_ANON_KEY:-}"
+      SUPABASE_SERVICE_ROLE_KEY: "${SUPABASE_SERVICE_ROLE_KEY:-}"
+      LLM_PROVIDER: "${LLM_PROVIDER:-}"
+      CLINE_PROVIDER_ID: "${CLINE_PROVIDER_ID:-}"
+      CLINE_MODEL_ID: "${CLINE_MODEL_ID:-}"
+      CLINE_API_KEY: "${CLINE_API_KEY:-}"
+      OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
+      OPENAI_BASE_URL: "${OPENAI_BASE_URL:-}"
+      OPENAI_MODEL: "${OPENAI_MODEL:-}"
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    develop:
+      watch:
+        # The backend runs TypeScript directly (`node src/index.ts` - no build step),
+        # so syncing the source and restarting the process is enough to pick it up.
+        - action: sync+restart
+          path: ./backend/src
+          target: /app/backend/src
+        # A dependency change needs a real image rebuild.
+        - action: rebuild
+          path: ./backend/package.json
+
+  web:
+    build:
+      context: .
+      dockerfile: packages/web/Dockerfile
+      # These are inlined into the client bundle at build time, so they must be
+      # passed here as well as to the runtime environment.
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: "${NEXT_PUBLIC_SUPABASE_URL:-}"
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: "${NEXT_PUBLIC_SUPABASE_ANON_KEY:-}"
+        # Demo sign-in only applies while NEXT_PUBLIC_SUPABASE_URL is empty.
+        NEXT_PUBLIC_DEMO_AUTH: "${NEXT_PUBLIC_DEMO_AUTH:-true}"
+        NEXT_PUBLIC_DEMO_AUDIT: "${NEXT_PUBLIC_DEMO_AUDIT:-false}"
+        NEXT_PUBLIC_SUPPORT_EMAIL: "${NEXT_PUBLIC_SUPPORT_EMAIL:-}"
+    environment:
+      # Server-side proxy target for the chatbot and FAQ routes.
+      NAGRIKSETU_API_URL: "http://backend:8000"
+      NEXT_PUBLIC_SUPABASE_URL: "${NEXT_PUBLIC_SUPABASE_URL:-}"
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: "${NEXT_PUBLIC_SUPABASE_ANON_KEY:-}"
+      NEXT_PUBLIC_DEMO_AUTH: "${NEXT_PUBLIC_DEMO_AUTH:-true}"
+      NEXT_PUBLIC_DEMO_AUDIT: "${NEXT_PUBLIC_DEMO_AUDIT:-false}"
+      NEXT_PUBLIC_SUPPORT_EMAIL: "${NEXT_PUBLIC_SUPPORT_EMAIL:-}"
+      SUPABASE_SERVICE_ROLE_KEY: "${SUPABASE_SERVICE_ROLE_KEY:-}"
+      # Voice (optional): without a key /api/v1/voice/* returns not_configured.
+      SARVAM_API_KEY: "${SARVAM_API_KEY:-}"
+      SARVAM_STT_MODEL: "${SARVAM_STT_MODEL:-}"
+      SARVAM_TTS_MODEL: "${SARVAM_TTS_MODEL:-}"
+      SARVAM_TTS_SPEAKER: "${SARVAM_TTS_SPEAKER:-}"
+      # Document audit service; token must match the audit service below.
+      AUDIT_SERVICE_URL: "http://audit:8787"
+      AUDIT_SERVICE_TOKEN: "${AUDIT_SERVICE_TOKEN:-nagriksetu-local-audit-token}"
+      REVIEWS_AUTO_PUBLISH: "${REVIEWS_AUTO_PUBLISH:-true}"
+      DOCUMENT_STORAGE_ENABLED: "${DOCUMENT_STORAGE_ENABLED:-false}"
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+      audit:
+        # Not a hard dependency: the web app shows "audit service offline" if it is down.
+        condition: service_started
+    restart: unless-stopped
+    develop:
+      watch:
+        # The web image ships a compiled `next build` and runs `next start`, so there
+        # is no dev server inside the container to hot-reload. A source change needs a
+        # rebuild. `.dockerignore` already excludes node_modules and .next.
+        - action: rebuild
+          path: ./packages/web/src
+        - action: rebuild
+          path: ./packages/web/public
+        - action: rebuild
+          path: ./packages/web/tailwind.config.ts
+        - action: rebuild
+          path: ./packages/web/next.config.mjs
+        - action: rebuild
+          path: ./packages/web/postcss.config.mjs
+        - action: rebuild
+          path: ./packages/web/package.json
+
+  audit:
+    build:
+      context: .
+      dockerfile: packages/audit/Dockerfile
+      args:
+        # true = download eng/hin/mar OCR data at build time (offline at runtime).
+        BAKE_TESSDATA: "${BAKE_TESSDATA:-false}"
+    environment:
+      # Must listen on all interfaces inside the container (default is 127.0.0.1).
+      AUDIT_HOST: "0.0.0.0"
+      AUDIT_PORT: "8787"
+      AUDIT_SERVICE_TOKEN: "${AUDIT_SERVICE_TOKEN:-nagriksetu-local-audit-token}"
+      AUDIT_API_KEY: "${AUDIT_API_KEY:-}"
+      CLINE_API_KEY: "${CLINE_API_KEY:-}"
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
+      AUDIT_PROVIDER_ID: "${AUDIT_PROVIDER_ID:-}"
+      AUDIT_MODEL_ID: "${AUDIT_MODEL_ID:-}"
+      AUDIT_VISION_MODEL_ID: "${AUDIT_VISION_MODEL_ID:-}"
+      AUDIT_TEXT_ONLY: "${AUDIT_TEXT_ONLY:-}"
+      # Set to /tessdata when BAKE_TESSDATA=true or a tessdata dir is mounted there.
+      AUDIT_TESSDATA_DIR: "${AUDIT_TESSDATA_DIR:-}"
+      # Only used when a database is configured; otherwise results stay in memory.
+      SUPABASE_URL: "${NEXT_PUBLIC_SUPABASE_URL:-}"
+      SUPABASE_SERVICE_ROLE_KEY: "${SUPABASE_SERVICE_ROLE_KEY:-}"
+    volumes:
+      - audit-tessdata-cache:/tmp/nagriksetu-tessdata
+    ports:
+      # Localhost only: the endpoint is token-protected but not meant to be public.
+      - "127.0.0.1:8787:8787"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8787/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    develop:
+      watch:
+        # The audit service runs compiled output (`node dist/cli.js serve`), so its
+        # source - and the two workspace libraries compiled into the same image -
+        # need a rebuild rather than a sync.
+        - action: rebuild
+          path: ./packages/audit/src
+        - action: rebuild
+          path: ./packages/agents/src
+        - action: rebuild
+          path: ./packages/documents/src
+        - action: rebuild
+          path: ./packages/audit/package.json
+
+volumes:
+  audit-tessdata-cache:

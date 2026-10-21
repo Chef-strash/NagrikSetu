@@ -1,5 +1,5 @@
 # NagrikSetu Design System: Civic-Industrial & Vernacular Accessibility
-**Codename**: `Civic-Foundry` | **Version**: 1.0 (Hackathon Edition) | **Team**: Blackbox
+**Codename**: `Civic-Foundry` | **Version**: 1.0 (Hackathon Edition) | **Team**: Whitebox
 
 ---
 

@@ -3,7 +3,7 @@
 # Deep-Dive Feasibility & Problem Analysis:
 ## Civic Welfare Intelligence Engine vs. Cline SDK Capabilities
 
-**Context:** Cline AI Builders Hackathon, Programming Club, IIT Kanpur (Oct 2026)  
+**Context:** AIVORA 2K26 Hackathon  
 **Topic:** Real-world verification of the "Government Schemes / Civic Assistance" idea, existing market solutions, and technical fit with `@cline/sdk`.
 
 ---
@@ -51,7 +51,7 @@ Local Facility / Hospital (Real-time machine availability, doctor schedules, OPD
 
 ## 3. How Exactly Does Cline SDK Fit In?
 
-This is the single most important criterion on the IIT Kanpur hackathon rubric (**"Effective Use of Cline — Bonus for SDK"**).
+This is the single most important criterion on the hackathon judging rubric (**"Effective Use of Cline — Bonus for SDK"**).
 
 ### Why a Normal Chatbot or RAG Pipeline DOES NOT Use Cline
 If you just build a user-facing chatbot that answers questions using OpenAI / Claude embeddings, **Cline has no purpose**. Cline is not an embedding database. It is not a voice-transcription model.
@@ -99,7 +99,7 @@ Instead of manually writing 800 brittle scrapers for 800 Indian districts, **you
 
 ---
 
-## 4. Why This Architecture Wins at IIT Kanpur
+## 4. Why This Architecture Wins at AIVORA 2K26
 
 1. **Grounding in Reality:** Acknowledges myScheme and Jugalbandi exist, but targets the **unsolved municipal/district data ingestion bottleneck**.
 2. **Deep Technical SDK Alignment:** 
