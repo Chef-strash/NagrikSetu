@@ -8,6 +8,9 @@ import { WARDS } from "../lib/data/wards";
 import { loadWards } from "../lib/data/wards-remote";
 import { MapPin, User, LogOut, ChevronDown } from "lucide-react";
 
+/** Skip-login builds (`NEXT_PUBLIC_AUTO_LOGIN=true`) have no real session to end. */
+const AUTO_LOGIN = process.env.NEXT_PUBLIC_AUTO_LOGIN === "true";
+
 export function Header() {
   const { user, isAuthenticated, logout, language, toggleLanguage, saveProfile, authLoading, authEmail } = useApp();
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -134,17 +137,21 @@ export function Header() {
                     >
                       {language === "mr" ? "माझे सक्रिय अर्ज" : "My Sessions"}
                     </Link>
-                    <div className="border-t border-[#222] my-1"></div>
-                    <button
-                      onClick={() => {
-                        logout();
-                        setShowUserMenu(false);
-                      }}
-                      className="w-full text-left flex items-center space-x-2 px-3 py-2 text-xs text-red-500 hover:bg-[#1a0505] transition-colors"
-                    >
-                      <LogOut className="w-3.5 h-3.5" />
-                      <span>{language === "mr" ? "साइन आउट" : "Sign Out"}</span>
-                    </button>
+                    {!AUTO_LOGIN && (
+                      <>
+                        <div className="border-t border-[#222] my-1"></div>
+                        <button
+                          onClick={() => {
+                            logout();
+                            setShowUserMenu(false);
+                          }}
+                          className="w-full text-left flex items-center space-x-2 px-3 py-2 text-xs text-red-500 hover:bg-[#1a0505] transition-colors"
+                        >
+                          <LogOut className="w-3.5 h-3.5" />
+                          <span>{language === "mr" ? "साइन आउट" : "Sign Out"}</span>
+                        </button>
+                      </>
+                    )}
                   </div>
                 )}
               </div>

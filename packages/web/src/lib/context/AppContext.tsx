@@ -14,6 +14,31 @@ import { replyText } from "../chatbot/reply";
 import { auditUploadedDocuments } from "../documents/audit";
 import { toChatProfile } from "../chatbot/profile";
 
+/**
+ * Skip the sign-in screen: land straight on the dashboard as a demo citizen.
+ *
+ * Build-time switch (`NEXT_PUBLIC_AUTO_LOGIN=true`). `NEXT_PUBLIC_*` values are
+ * inlined into the bundle, so changing it needs a rebuild. Intended for demo and
+ * evaluation builds. It grants a LOCAL identity, not a Supabase session: live reads
+ * still work through the anon key (RLS), but server-side writes that need a real
+ * user (posting a review, server-side session sync) still require a sign-in.
+ */
+const AUTO_LOGIN = process.env.NEXT_PUBLIC_AUTO_LOGIN === "true";
+
+/** The same demo citizen `scripts/demo-otp.mjs --profile` writes. */
+const AUTO_LOGIN_PROFILE: UserProfile = {
+  ...EMPTY_PROFILE,
+  name: "Ramesh Patil",
+  mobile: "9800000001",
+  ward: "Ward 14: Kothrud - Bawdhan",
+  income: 180000,
+  domicileYears: 12,
+  category: "OBC",
+  rationCard: "Yellow",
+  dbtEnabled: true,
+  disabilityStatus: "None"
+};
+
 export interface UserProfile {
   name: string;
   mobile: string;
@@ -188,7 +213,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   };
 
   const login = (name: string, mobile: string) => {
-    if (!isDemoAuth) return;
+    if (!isDemoAuth && !AUTO_LOGIN) return;
     setUser((prev) => ({ ...prev, name, mobile }));
     setIsAuthenticated(true);
   };
@@ -231,7 +256,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const saveProfile = async (partial?: Partial<UserProfile>) => {
     const merged = { ...user, ...(partial || {}) };
     setUser(merged);
-    if (!supabase || !authUserId) return isDemoAuth ? {} : { error: "You are not signed in." };
+    if (!supabase || !authUserId) return isDemoAuth || AUTO_LOGIN ? {} : { error: "You are not signed in." };
     const { error } = await supabase
       .from("user_profiles")
       .upsert(profileToRow(merged, authUserId, authEmail), { onConflict: "user_id" });
@@ -280,6 +305,15 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       sub.subscription.unsubscribe();
     };
   }, []);
+
+  // Skip-login builds: adopt the demo identity once auth has settled, so the
+  // dashboard, assistant and audit screens all have a citizen to work with.
+  const autoLoginApplied = useRef(false);
+  useEffect(() => {
+    if (!AUTO_LOGIN || authLoading || autoLoginApplied.current) return;
+    autoLoginApplied.current = true;
+    setUser((prev) => (prev.name ? prev : AUTO_LOGIN_PROFILE));
+  }, [authLoading]);
 
   const toggleLanguage = () => {
     setLanguage((prev) => (prev === "en" ? "mr" : "en"));
@@ -756,7 +790,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       value={{
         user,
         updateUser,
-        isAuthenticated,
+        // AUTO_LOGIN short-circuits the flag so every consumer treats the demo
+        // visitor as signed in, whatever Supabase reports.
+        isAuthenticated: AUTO_LOGIN || isAuthenticated,
         login,
         logout,
         authLoading,

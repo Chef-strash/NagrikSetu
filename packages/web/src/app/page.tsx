@@ -12,6 +12,7 @@ import { startChatSession, selectChatScheme, ChatbotApiError } from "../lib/chat
 import { useVoiceInput } from "../lib/voice/useVoiceInput";
 import { FooterContent } from "../components/Footer";
 import { CivicBackground } from "../components/CivicBackground";
+import { ProfilePrompt } from "../components/ProfilePrompt";
 
 export default function HomePage() {
   const { isAuthenticated } = useApp();
@@ -110,6 +111,9 @@ export default function HomePage() {
       {/* Layered decorative backdrop. Swap the variant to preview alternatives:
           "blueprint" | "dots" | "contour" | "hatch" | "none" */}
       <CivicBackground variant="blueprint" />
+
+      {/* Landing nudge for the profile facts scheme matching depends on. */}
+      <ProfilePrompt />
 
       <div 
         className="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-[cubic-bezier(0.76,0,0.24,1)]"

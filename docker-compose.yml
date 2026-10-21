@@ -69,6 +69,8 @@ services:
         # Demo sign-in only applies while NEXT_PUBLIC_SUPABASE_URL is empty.
         NEXT_PUBLIC_DEMO_AUTH: "${NEXT_PUBLIC_DEMO_AUTH:-true}"
         NEXT_PUBLIC_DEMO_AUDIT: "${NEXT_PUBLIC_DEMO_AUDIT:-false}"
+        # Skip the sign-in screen: land on the dashboard as the demo citizen.
+        NEXT_PUBLIC_AUTO_LOGIN: "${NEXT_PUBLIC_AUTO_LOGIN:-false}"
         NEXT_PUBLIC_SUPPORT_EMAIL: "${NEXT_PUBLIC_SUPPORT_EMAIL:-}"
     environment:
       # Server-side proxy target for the chatbot and FAQ routes.
@@ -77,6 +79,7 @@ services:
       NEXT_PUBLIC_SUPABASE_ANON_KEY: "${NEXT_PUBLIC_SUPABASE_ANON_KEY:-}"
       NEXT_PUBLIC_DEMO_AUTH: "${NEXT_PUBLIC_DEMO_AUTH:-true}"
       NEXT_PUBLIC_DEMO_AUDIT: "${NEXT_PUBLIC_DEMO_AUDIT:-false}"
+      NEXT_PUBLIC_AUTO_LOGIN: "${NEXT_PUBLIC_AUTO_LOGIN:-false}"
       NEXT_PUBLIC_SUPPORT_EMAIL: "${NEXT_PUBLIC_SUPPORT_EMAIL:-}"
       SUPABASE_SERVICE_ROLE_KEY: "${SUPABASE_SERVICE_ROLE_KEY:-}"
       # Voice (optional): without a key /api/v1/voice/* returns not_configured.
